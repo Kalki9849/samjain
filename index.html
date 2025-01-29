@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exclusive Content</title>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background-color: #f4f4f9;
+            margin: 0;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            max-width: 600px;
+            margin: auto;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        .hidden {
+            display: none;
+        }
+        /* Dropdown Menu */
+        .dropdown {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+        .dropbtn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            display: block;
+            text-decoration: none;
+        }
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .section {
+            margin-top: 50px;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            max-width: 600px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Dropdown Menu -->
+    <div class="dropdown">
+        <button class="dropbtn">☰ Menu</button>
+        <div class="dropdown-content">
+            <a href="#" onclick="showSection('welcomeSection')">Home</a>
+            <a href="#" onclick="showSection('plansSection')">Plans</a>
+            <a href="#" onclick="showSection('privacySection')">Privacy Policy</a>
+            <a href="#" onclick="showSection('supportSection')">Support</a>
+        </div>
+    </div>
+
+    <!-- Welcome Section -->
+    <div class="container" id="welcomeSection">
+        <h1>Welcome to Exclusive Content</h1>
+        <button class="btn" onclick="showSection('plansSection')">Open</button>
+    </div>
+
+    <!-- Plans Section -->
+    <div class="container hidden" id="plansSection">
+        <h2>Choose Your Plan</h2>
+        <div class="plan">
+            <h3>Basic Plan</h3>
+            <p>₹299</p>
+            <button class="btn" onclick="selectPlan('Basic', 299)">Select Plan</button>
+        </div>
+        <div class="plan">
+            <h3>Premium Plan</h3>
+            <p>₹379</p>
+            <button class="btn" onclick="selectPlan('Premium', 379)">Select Plan</button>
+        </div>
+    </div>
+
+    <!-- Payment Selection Section -->
+    <div class="container hidden" id="paymentSelection">
+        <h2>Choose Payment Method</h2>
+        <p><strong>Selected Plan:</strong> <span id="selectedPlan"></span></p>
+        <p><strong>Price:</strong> ₹<span id="selectedPrice"></span></p>
+        <button class="btn" onclick="choosePayment('UPI')">UPI (PhonePe, Google Pay, Paytm)</button>
+        <button class="btn" onclick="choosePayment('Card')">Card (Debit/Credit)</button>
+    </div>
+
+    <!-- Privacy Policy Section -->
+    <div class="section hidden" id="privacySection">
+        <h2>Privacy Policy</h2>
+        <p>At Exclusive Content, we prioritize your privacy and ensure your personal data remains secure. We do not share your information with third parties, except as necessary to process payments securely.</p>
+        <p>Our coaching platform provides a seamless learning experience, and any data you provide will be used only to enhance our services. We adhere to strict data protection laws and encrypt sensitive information.</p>
+        <p>By using our services, you agree to our privacy policy, which may be updated periodically to reflect best practices in data protection.</p>
+    </div>
+
+    <!-- Support Section -->
+    <div class="section hidden" id="supportSection">
+        <h2>Support</h2>
+        <p>For any queries or support, feel free to reach out to us:</p>
+        <p><strong>Email:</strong> imsameera.jain@gmail.com</p>
+        <p><strong>Mobile:</strong> 7382925215</p>
+    </div>
+
+    <script>
+        let selectedPlan = "";
+        let planAmount = 0;
+
+        function showSection(sectionId) {
+            // Hide all sections
+            document.getElementById('welcomeSection').classList.add('hidden');
+            document.getElementById('plansSection').classList.add('hidden');
+            document.getElementById('paymentSelection').classList.add('hidden');
+            document.getElementById('privacySection').classList.add('hidden');
+            document.getElementById('supportSection').classList.add('hidden');
+
+            // Show the selected section
+            document.getElementById(sectionId).classList.remove('hidden');
+        }
+
+        function selectPlan(plan, amount) {
+            selectedPlan = plan;
+            planAmount = amount;
+            document.getElementById('selectedPlan').innerText = plan;
+            document.getElementById('selectedPrice').innerText = amount;
+            showSection('paymentSelection');
+        }
+
+        function choosePayment(method) {
+            alert("You selected " + method + " payment method for " + selectedPlan + " plan.");
+            // Here, you can redirect users to the payment gateway
+        }
+    </script>
+
+</body>
+</html>
